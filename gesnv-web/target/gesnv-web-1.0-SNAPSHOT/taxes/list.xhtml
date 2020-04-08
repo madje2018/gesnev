@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+      
+    <ui:define name="titre"> Edition des taxes </ui:define>
+    
+    <ui:define name="content">
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12 ui-lg-6">
+                <div class="card">
+                <h1>Liste des services</h1>                    
+                <p:button outcome="edit" value="nouveau" style="width:auto"></p:button>
+                <br/> <br/>
+                    <h:form>        
+                        <p:dataTable value="#{taxeBean.taxes}" var="t" >               
+                                            
+                            <p:column>
+                                <f:facet name="header">Code</f:facet>
+                                <h:outputText value="#{t.code}"/>
+                                
+                            </p:column> 
+                
+                            <p:column width="120">
+                                <f:facet name="header">Taux</f:facet> 
+                                <h:outputText value="#{t.taux}"/>
+                            </p:column> 
+                            
+                            <p:column width="60">
+                            <f:facet name="header">Operation</f:facet> 
+                            <h:link outcome="edit" class="purple-btn">
+                                <f:param name="id" value="#{t.code}"/><i class="fa fa-edit" title="Modifier" ></i>
+                            </h:link>
+                            <p:commandLink action="#{serviceBean.supprimer(t)}">
+                                <i class="fa fa-trash-o" title="Supprimer" ></i>
+                                <p:confirm header="Confirmation" message="Etês-vous sûr de vouloir supprimer cette taxe ?" icon="fa fa-warning" />
+                            </p:commandLink>
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                    <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                           </p:confirmDialog>
+                        </p:column>
+
+                            
+                        </p:dataTable>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

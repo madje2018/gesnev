@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+                
+    <ui:define name="title">Edition des clients</ui:define> 
+    
+    <f:metadata> 
+        <f:viewParam name="id" value="#{clientPrtBean.idClient}"/>
+        <f:viewAction action="#{clientPrtBean.initClient()}"/>
+    </f:metadata>
+
+    <ui:define name="content">                  
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12 ui-lg-6">
+                <div class="card card-w-title">                    
+                    <h1>Edition</h1>
+                    <p:messages/>
+                    <h:form>                        
+                        <h:inputHidden id = "id" value= "#{clientPrtBean.particulier.id}"/> 
+                        <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank form-group" style="margin-top:10px">                           
+                            <h:outputLabel for="nom" value="NOM"/>                               
+                            <p:inputText id="nom" value= "#{clientPrtBean.particulier.nom}" 
+                                                 label="nom" required="true" requiredMessage="Le nom est obligatoire">                                   
+                            <f:validateLength minimum="2"/>                   
+                            </p:inputText>                          
+                            <p:message for="nom"/>
+                            
+                            <h:outputLabel for="prenom" value="PRENOM"/>                               
+                            <p:inputText id="prenom" value= "#{clientPrtBean.particulier.prenom}" 
+                                                 label="prenom">                                   
+                            <f:validateLength minimum="2"/>                   
+                            </p:inputText>                          
+                            <p:message for="prenom"/>
+                            
+                            <h:outputLabel for="email" value="EMAIL"/>                               
+                            <p:inputText id="email" value= "#{clientPrtBean.particulier.email}" 
+                                                 label="email">                                   
+                            <f:validateLength minimum="2"/>                   
+                            </p:inputText>                          
+                            <p:message for="email"/>
+                            
+                            <h:outputLabel for="contact" value="CONTACT"/>                               
+                            <p:inputText id="contact" value= "#{clientPrtBean.particulier.contact}" 
+                                                 label="contact">                                   
+                            <f:validateLength minimum="2"/>                   
+                            </p:inputText>                          
+                            <p:message for="contact"/>
+                            
+                            <h:outputLabel for="adresse" value="ADRESSE"/>                               
+                            <p:inputText id="adresse" value= "#{clientPrtBean.particulier.adresse}" 
+                                                 label="adresse">                                   
+                            <f:validateLength minimum="2"/>                   
+                            </p:inputText>                          
+                            <p:message for="adresse"/>
+                            
+                            <h:outputLabel for="ville" value="VILLE"/>                               
+                            <p:inputText id="ville" value= "#{clientPrtBean.particulier.ville}" 
+                                                 label="ville">                                   
+                            <f:validateLength minimum="2"/>                   
+                            </p:inputText>                          
+                            <p:message for="ville"/>                                
+                        </p:panelGrid> 
+                        <div class="card">                                
+                            <div class="ui-g-6 ui-md-3" style="text-align:center">
+                                <p:commandButton   value="Enregistrer" action="#{clientPrtBean.enregistrer()}">
+                                    <p:confirm header="Confirmation" message="Voulez-vous enregistrer?" icon="fa fa-warning" />
+                                </p:commandButton>
+                            </div>                                
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                                <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+                            </p:confirmDialog>
+                            </div>                                          
+                    </h:form>
+                </div>
+            </div>
+        </div>        
+    </ui:define>
+</ui:composition>
+
+
+

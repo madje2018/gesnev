@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+                
+    <ui:define name="title">Edition des devis</ui:define>
+    
+    <ui:define name="head">
+        <style type="text/css">
+            .ui-button {
+                margin-right: 4px;
+            }
+            
+            .form-grid td {
+                padding: 16px 2px;
+            }          
+                       
+        </style>
+    </ui:define>
+   
+    <f:metadata>
+        <f:viewParam name="id" value="#{prestationBean.idPrestation}"/>
+        <f:viewAction action="#{prestationBean.initPrestation()}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+        <div class="ui-g ui-fluid ">
+            <div class="ui-g-12">
+                <div class="card">
+                <h1> DEVIS </h1> 
+                <p:messages closable="true"/>
+                <h:form id="form">
+                    <div class="ui-md-4">
+                        <div class="form-group">
+                            <p:outputLabel for="client" value="Client"/>                            
+                            <p:selectOneMenu id="client" 
+                                editable="false" required="false" requiredMessage="Le client est obligatoire."          
+                                value="#{prestationBean.client}"
+                                converter="omnifaces.SelectItemsConverter">   
+                                <f:selectItem itemLabel="- Veuillez choisir -" noSelectionOption="true"/>                                        
+                                <f:selectItems value="#{prestationBean.clients}" var="item"      
+                                               itemValue="#{item}" itemLabel="#{item.adresse}"/>                                                          
+                            </p:selectOneMenu>                             
+                            <p:message for="client"/> 
+                        </div>
+                    </div>                   
+                                                                               
+                    <h:panelGroup id="prestationServicePanel" class="row" layout="block">                       
+                        <p:panelGrid columns="5" style="margin-top:20px" styleClass="ui-panelgrid-blank form-group" >
+                            <p:outputLabel for="service" value="Service"/>
+                            <p:outputLabel for="prixUnitaire" value="Prix Unitaire"/>
+                            <p:outputLabel for="quantite" value="Quantité"/>
+                            <p:outputLabel for="remise" value="Remise"/>
+                            <p:outputLabel for="totalHT" value="Total HT"/>
+                            
+                            <p:selectOneMenu id="service" 
+                                editable="false"
+                                required="true" requiredMessage="Le service est obligatoire."
+                                value="#{prestationBean.service}"
+                                converter="omnifaces.SelectItemsConverter"> 
+                                <f:ajax render="prixUnitaire" listener="#{prestationBean.afficherPrix()}"/>
+                                <f:selectItem itemLabel="- Veuillez choisir -" noSelectionOption="true"/>
+                                <f:selectItems value="#{prestationBean.services}" var="item"
+                                itemValue="#{item}" itemLabel="#{item.designation}"/>                
+                            </p:selectOneMenu>                                                      
+                                                    
+                            <p:inputNumber id="prixUnitaire" value= "#{prestationBean.service.prixUnitaire}" readonly="true" />                                                                                
+                                                                                          
+                            <p:inputNumber id="quantite" label="quantité" value="#{prestationBean.qte}" required="true"/>
+                                                                                           
+                            <p:inputNumber id="remise" label="remise" value="#{prestationBean.remise}" required="true"/>                                   
+                            
+                            <p:inputNumber id="totalHT" value= "#{prestationBean.totalHT}" readonly="true" />
+                        </p:panelGrid>    
+                    </h:panelGroup>
+                           
+                    <div class="ui-md-2">                              
+                        <p:commandButton id="btn_add" value="Ajouter une ligne" update ="prestationServices prestationServicePanel" 
+                                         ajax ="true"  action="#{prestationBean.listServicesChoisis()}" binding="#{addButton}"
+                                         styleClass="green-btn" style="margin-bottom:10px;">
+                            <p:collector value="#{prestationBean.serviceChoisi}" addTo="#{prestationBean.servicesChoisis}" unique="true"/>                         
+                        </p:commandButton>                                
+                    </div>
+                    
+                    <div>                                                     
+                    <p:outputPanel id="prestationServices">
+                        <p:dataTable value="#{prestationBean.servicesChoisis}" var="p" id="pstable">                                                                                                                
+                            <p:column width="300">
+                                <f:facet name="header">Service</f:facet>
+                                <h:outputText value="#{p.service.designation}"/>
+                            </p:column> 
+                                    
+                            <p:column width="60">
+                                <f:facet name="header">Quantité</f:facet>
+                                <h:outputText value="#{p.quantite}"/>
+                            </p:column> 
+                                    
+                            <p:column width="60">
+                                <f:facet name="header">Remise</f:facet>
+                                <h:outputText value="#{p.remise}"/>
+                            </p:column> 
+                                    
+                            <p:column width="60">
+                                <f:facet name="header">Action</f:facet>
+                                <p:commandLink value="Retirer" update=":form:prestationServices" process=":form:prestationServices">
+                                    <p:collector value="#{p}" removeFrom="#{prestationBean.servicesChoisis}" unique="true"/>
+                                </p:commandLink>                                                                          
+                            </p:column>                                    
+                       </p:dataTable>                                   
+                    </p:outputPanel>
+                    </div>    
+                    <br/>                      
+                    <fieldset> 
+                        <legend>Prestation</legend>
+                        <div class="ui-g-12 ui-lg-6">    
+                            <p:panelGrid columns="2" style="margin-top:20px" styleClass="ui-panelgrid-blank form-group" >                                
+                                <p:outputLabel for="date" value="Date"/> 
+                                <p:inputText id="date" label="date" value="#{prestationBean.prestation.datePrestation}" readonly="true" >
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </p:inputText>
+                            
+                                <p:outputLabel for="numero" value="Numero"/>                                
+                                <p:inputText id="numero" label="numero" value="#{prestationBean.prestation.numPrestation}" readonly="true" />                            
+                                 
+                                <p:outputLabel for="reference" value="Reference"/> 
+                                <p:inputText id="reference" label="reference" value="#{prestationBean.prestation.reference}" required="false"/>                                                                                                                            
+                                    
+                                <p:outputLabel for="intitulé" value="Intitulé"/> 
+                                <p:inputTextarea rows="2" id="intitulé" label="intitulé" value="#{prestationBean.prestation.libmainOeuvre}" required="false" autoResize="false"/>                                                                                      
+                            </p:panelGrid> 
+                        </div> 
+                        
+                        <div class="ui-g-12 ui-lg-6">
+                            <p:panelGrid columns="2" style="margin-top:20px" styleClass="ui-panelgrid-blank form-group">                                                                                                                                                 
+                                <p:outputLabel for="mainOeuvre" value="Main d'Oeuvre"/> 
+                                <p:inputText id="mainOeuvre" label="mainOeuvre" value="#{prestationBean.prestation.mainOeuvre}" required="false"/>
+                                
+                                <p:outputLabel for="taxe" value="Taxe"/>
+                                <p:selectOneMenu id="taxe" editable="false" required="false"                                               
+                                                 value="#{prestationBean.taxe}"
+                                    converter="omnifaces.SelectItemsConverter">
+                                    <f:ajax render="taux" listener="#{prestationBean.afficherTaux()}"/>
+                                    <f:selectItem itemLabel="- Veuillez choisir -" noSelectionOption="true"/>                                        
+                                    <f:selectItems value="#{prestationBean.taxes}" var="item"      
+                                                   itemValue="#{item}" itemLabel="#{item.code}"/>                                                          
+                                </p:selectOneMenu> 
+                                
+                                <p:outputLabel for="taux" value="Taux"/>
+                                <p:inputNumber id="taux" label="taux" value="#{prestationBean.taxe.taux}" readonly="true" />                                                                                             
+                                                             
+                            </p:panelGrid>     
+                        </div>
+                    </fieldset>                        
+                    
+                    <div class="card ui-md-2">                     
+                        <p:commandButton  id="btn_add2" value="Enregistrer" styleClass="blue-btn" action="#{prestationBean.enregistrer()}"/>                       
+                    </div>                        
+                    </h:form>
+                </div>
+            </div>
+        </div>       
+    </ui:define>
+</ui:composition>
+
+
+

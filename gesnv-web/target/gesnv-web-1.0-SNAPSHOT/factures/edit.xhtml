@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+                
+    <ui:define name="title">Edition des Factures</ui:define> 
+    
+    <f:metadata> 
+        <f:viewParam name="id" value="#{devisBean.idFacture}"/>
+        <f:viewAction action="#{factureBean.initFacture()}"/>
+    </f:metadata>
+    
+    <ui:define name="content">                  
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12 ui-lg-6">
+                <div class="card card-w-title">                    
+                    <h1>Edition</h1>
+                    <h:messages/>
+                    <h:form>         
+                    </h:form>
+                </div> 
+            </div>
+        </div> 
+    </ui:define>    
+</ui:composition>

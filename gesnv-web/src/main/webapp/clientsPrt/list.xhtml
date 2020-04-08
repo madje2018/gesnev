@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+                
+    <ui:define name="title">Liste des clients</ui:define>
+
+    <ui:define name="content">
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12 ui-lg-9">
+                <div class="card">
+                <h1>Liste des Clients</h1>                    
+                <p:button outcome="edit" value="nouveau" style="width:auto"></p:button>
+                <br/> <br/>
+                <h:form>        
+                    <p:dataTable value = "#{clientPrtBean.particuliers}" var= "p">
+                        <p:column>
+                            <f:facet name="header">Nom</f:facet> 
+                            <h:outputText value="#{p.nom}"/>
+                        </p:column> 
+                        
+                        <p:column>
+                            <f:facet name="header">Prenom</f:facet> 
+                            <h:outputText value="#{p.prenom}"/>
+                        </p:column> 
+                        
+                        <p:column>
+                            <f:facet name="header">Email</f:facet> 
+                            <h:outputText value="#{p.email}"/>
+                        </p:column> 
+                        
+                        <p:column>
+                            <f:facet name="header">Contact</f:facet> 
+                            <h:outputText value="#{p.contact}"/>
+                        </p:column> 
+                        
+                        <p:column>
+                            <f:facet name="header">Adresse</f:facet> 
+                            <h:outputText value="#{p.adresse}"/>
+                        </p:column> 
+                        
+                        <p:column width="60">
+                            <f:facet name="header">Operation</f:facet> 
+                            <h:link outcome="edit" class="purple-btn">
+                                <f:param name="id" value="#{p.id}"/><i class="fa fa-edit" title="Modifier" ></i>
+                            </h:link>
+                            <h:commandLink action="#{clientPrtBean.supprimer(p)}">
+                                <i class="fa fa-trash-o" title="Supprimer" ></i>
+                            </h:commandLink>
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>
+                </div>
+            </div>
+        </div>
+        
+    </ui:define>
+
+</ui:composition>
+
+

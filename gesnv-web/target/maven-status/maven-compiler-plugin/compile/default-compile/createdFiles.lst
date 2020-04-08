@@ -1,0 +1,16 @@
+gb\group\neovision\gesnv\web\beans\ClientSctBean.class
+gb\group\neovision\gesnv\web\dr\processor\PDFDRProcessor.class
+gb\group\neovision\gesnv\web\beans\ClientBean.class
+gb\group\neovision\gesnv\web\beans\PrestationBean.class
+gb\group\neovision\gesnv\web\beans\ClientReportBean.class
+gb\group\neovision\gesnv\web\beans\GenericDRBean.class
+gb\group\neovision\gesnv\web\beans\ServiceBean.class
+gb\group\neovision\gesnv\web\beans\DevisReportBean.class
+gb\group\neovision\gesnv\web\beans\FactureBean.class
+gb\group\neovision\gesnv\web\beans\TaxeBean.class
+gb\group\neovision\gesnv\web\dr\ClientDRDesign.class
+gb\group\neovision\gesnv\web\utils\ServiceChoisi.class
+gb\group\neovision\gesnv\web\dr\processor\XlsxDRProcessor.class
+gb\group\neovision\gesnv\web\beans\ClientPrtBean.class
+gb\group\neovision\gesnv\web\dr\AbstractGesnvDRDesign.class
+gb\group\neovision\gesnv\web\dr\processor\DRProcessor.class

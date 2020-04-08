@@ -1,0 +1,49 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pv="http://primefaces.org/paradise">
+    
+    <div class="layout-menu-wrapper layout-menu-dark">
+        <div class="nano">
+            <div class="nano-content sidebar-scroll-content">
+                <div class="layout-menu-container">
+                    <h:form id="menuform">
+                        <div class="mobile-search">
+                            <i class="fa fa-fw fa-search topbar-search-icon"></i>
+                            <input type="text" class="topbar-search" placeholder="Type your search here"/>
+                        </div>
+                        
+                        <pv:menu>
+                            <p:menuitem id="pm_dashboard" value="Accueil" icon="fa fa-home" outcome="/index" />
+                                                       
+                            <p:submenu id="pm_sm1" label="Donnés de référence" icon="fa fa-gg">
+                                <p:submenu id="pm_sm11" label="Clients" icon="fa fa-sign-in">   
+                                    <p:menuitem id="pm_lnk111" value="Société" icon="fa fa-sign-in" outcome="/clientsSct/list" />
+                                    <p:menuitem id="pm_lnk112" value="Particulier" icon="fa fa-sign-in" outcome="/clientsPrt/list" />
+                                </p:submenu>
+                                <p:menuitem id="pm_lnk113" value="Services" icon="fa fa-sign-in" outcome="/services/list" />                                
+                                <p:menuitem id="pm_lnk114" value="Taxes" icon="fa fa-sign-in" outcome="/taxes/list" />                                    
+                            </p:submenu>                            
+                            
+                            <p:menuitem id="pm_devis" value="Devis" icon="fa fa-life-saver" outcome="/prestations/list" />                               
+                            
+                            <p:menuitem id="pm_facture" value="Factures" icon="fa fa-globe" url="#"  />                                                                                                                                           
+                            
+                            <p:submenu id="pm_sm2" label="Etats" icon="fa fa-arrow-circle-o-up">
+                                    
+                                <p:menuitem id="pm_lnk211" value="Clients" icon="fa fa-sign-in" url="#" />
+                                <p:menuitem id="pm_lnk212" value="Factures" icon="fa fa-sign-in" url="#" />
+                                                                      
+                            </p:submenu>
+                                                      
+                        </pv:menu>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</ui:composition>

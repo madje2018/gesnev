@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+                
+    <ui:define name="title">Edition des clients</ui:define> 
+    
+    <f:metadata> 
+        <f:viewParam name="id" value="#{clientSctBean.idClient}"/>
+        <f:viewAction action="#{clientSctBean.initClient()}"/>
+    </f:metadata>
+
+    <ui:define name="content">                  
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12 ui-lg-6">
+                <div class="card card-w-title">                    
+                    <h1>Edition</h1>
+                    <h:messages/>
+                    <h:form>                        
+                        <h:inputHidden id = "id" value= "#{clientSctBean.societe.id}"/> 
+                        <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank form-group" style="margin-top:10px">                           
+                            <h:outputLabel for="raisonSociale" value="Raison Sociale"/>                               
+                            <p:inputText id="raisonSociale" value= "#{clientSctBean.societe.raisonSociale}" 
+                                                 label="raisonSociale" required="true" requiredMessage="La raison sociale est obligatoire">                                   
+                            <f:validateLength minimum="2"/>                   
+                            </p:inputText>                          
+                            <h:message for="raisonSociale"/>
+                            
+                            <h:outputLabel for="nif" value="NIF"/>                               
+                            <p:inputText id="nif" value= "#{clientSctBean.societe.nif}" 
+                                                 label="nif">                                   
+                            <f:validateLength minimum="2"/>                   
+                            </p:inputText>                          
+                            <h:message for="nif"/>
+                            
+                            <h:outputLabel for="contact" value="CONTACT"/>                               
+                            <p:inputText id="contact" value= "#{clientSctBean.societe.contact}" 
+                                                 label="contact">                                   
+                            <f:validateLength minimum="2"/>                   
+                            </p:inputText>                          
+                            <h:message for="contact"/>
+                            
+                            <h:outputLabel for="adresse" value="ADRESSE"/>                               
+                            <p:inputText id="adresse" value= "#{clientSctBean.societe.adresse}" 
+                                                 label="adresse">                                   
+                            <f:validateLength minimum="2"/>                   
+                            </p:inputText>                          
+                            <h:message for="adresse"/>
+                            
+                            <h:outputLabel for="ville" value="VILLE"/>                               
+                            <p:inputText id="ville" value= "#{clientSctBean.societe.ville}" 
+                                                 label="ville">                                   
+                            <f:validateLength minimum="2"/>                   
+                            </p:inputText>                          
+                            <h:message for="ville"/>                               
+                        </p:panelGrid> 
+                        <div class="card">                                
+                            <div class="ui-g-6 ui-md-3" style="text-align:center">
+                                <p:commandButton   value="Enregistrer" action="#{clientSctBean.enregistrer()}">
+                                    <p:confirm header="Confirmation" message="Voulez-vous enregistrer?" icon="fa fa-warning" />
+                                </p:commandButton>
+                            </div>                               
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                                <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+                            </p:confirmDialog>
+                            </div>                                          
+                    </h:form>
+                </div>
+            </div>
+        </div>        
+    </ui:define>
+</ui:composition>
+
+

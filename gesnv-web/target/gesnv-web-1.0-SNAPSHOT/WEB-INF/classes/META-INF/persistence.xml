@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="gesnvPU" transaction-type="JTA">
+    <jta-data-source>java:app/jdbc/gesnv</jta-data-source>
+    <class>gb.group.neovision.gesnv.entities.Client</class>
+    <class>gb.group.neovision.gesnv.entities.Prestation</class>
+    <class>gb.group.neovision.gesnv.entities.PrestationService</class>
+    <class>gb.group.neovision.gesnv.entities.Service</class>
+    <class>gb.group.neovision.gesnv.entities.Taxe</class>
+    <class>gb.group.neovision.gesnv.entities.Facture</class>
+    <class>gb.group.neovision.gesnv.entities.Particulier</class>
+    <class>gb.group.neovision.gesnv.entities.Societe</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <properties>
+      <property name="javax.persistence.schema-generation.database.action" value="create"/>
+    </properties>
+  </persistence-unit>
+</persistence>
